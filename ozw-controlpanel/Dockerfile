@@ -16,7 +16,7 @@ WORKDIR /etc/yum.repos.d/
 RUN yum install wget -y && wget http://mirror.my-ho.st/Downloads/OpenZWave%3A/Devel/CentOS_CentOS-7/OpenZWave%3ADevel.repo
 
 # Update the repository sources list
-RUN yum update -y && yum groupinstall 'Development Tools' -y && yum install libmicrohttpd-devel libopenzwave-devel gnutls-devel systemd-container-devel -y
+RUN yum update -y && yum groupinstall 'Development Tools' -y && yum install libmicrohttpd-devel libopenzwave-devel gnutls-devel systemd-devel -y
 
 
 ################## BEGIN INSTALLATION ######################
