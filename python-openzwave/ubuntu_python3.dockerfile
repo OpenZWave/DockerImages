@@ -37,7 +37,7 @@ RUN			apt-get -y update && apt-get -y install \
 				gnutls-bin libgnutls28-dev \
 				pkg-config 
 
-RUN 		pip3 install 'PyDispatcher>=2.0.5' six
+RUN 		pip3 install 'PyDispatcher>=2.0.5' six 'urwid>=1.1.1'
 
 ################################################################################
 # Install python_openzwave with embed sources as a shared module
@@ -67,4 +67,4 @@ RUN mkdir -p $HOME/user_config
 WORKDIR		$HOME/user_config
 VOLUME		$HOME/user_config
 EXPOSE 8008
-ENTRYPOINT [ "/bin/bash", "/usr/local/bin/ozwcp", "-p 8008"]
+ENTRYPOINT [ "/bin/bash", "/usr/local/bin/ozwcp", "/usr/local/bin/pyozw_check", "/usr/local/bin/pyozw_shell", "-p 8008"]
