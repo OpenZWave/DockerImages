@@ -36,7 +36,8 @@ RUN			apt-get -y update && apt-get -y install \
 				zlib1g-dev \
 				libmicrohttpd-dev \
 				gnutls-bin libgnutls28-dev \
-				pkg-config 
+				pkg-config && \
+				apt-get clean
 
 RUN 		pip3 install 'PyDispatcher>=2.0.5' six 'urwid>=1.1.1'
 

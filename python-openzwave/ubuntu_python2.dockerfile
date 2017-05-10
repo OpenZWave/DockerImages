@@ -35,7 +35,8 @@ RUN			apt-get -y update && apt-get -y install \
 				zlib1g-dev \
 				libmicrohttpd-dev \
 				gnutls-bin libgnutls28-dev \
-				pkg-config 
+				pkg-config && \
+				apt-get clean
 
 RUN 		pip install 'Louie>=1.1' six 'urwid>=1.1.1'
 
