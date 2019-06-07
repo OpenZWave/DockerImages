@@ -1,0 +1,7 @@
+[OpenZWave]
+name=OpenZWave Repository (CentOS_CentOS-7)
+type=rpm-md
+baseurl=http://mirror.my-ho.st/Downloads/OpenZWave/CentOS_CentOS-7/
+gpgcheck=1
+gpgkey=http://mirror.my-ho.st/Downloads/OpenZWave/CentOS_CentOS-7/repodata/repomd.xml.key
+enabled=1

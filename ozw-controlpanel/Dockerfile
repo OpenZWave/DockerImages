@@ -4,7 +4,7 @@
 ############################################################
 
 # Set the base image to Ubuntu
-FROM centos:centos7
+FROM centos:centos7 as builder
 
 # File Author / Maintainer
 MAINTAINER Justin Hammond
@@ -13,7 +13,8 @@ WORKDIR /etc/yum.repos.d/
 
 
 # Add the package verification key
-RUN yum install wget -y && wget http://mirror.my-ho.st/Downloads/OpenZWave%3A/Devel/CentOS_CentOS-7/OpenZWave%3ADevel.repo
+#RUN yum install wget -y && wget http://mirror.my-ho.st/Downloads/OpenZWave%3A/Devel/CentOS_CentOS-7/OpenZWave%3ADevel.repo
+COPY /files/*.repo /etc/yum.repos.d/
 
 # Update the repository sources list
 RUN yum update -y && yum install epel-release -y && yum groupinstall 'Development Tools' -y 
@@ -54,7 +55,24 @@ USER root
 RUN yum grouperase 'Development Tools' -y
 RUN yum erase libmicrohttpd-devel libopenzwave-devel systemd-container-devel -y
 
+FROM centos:centos7 as final
+
+# File Author / Maintainer
+MAINTAINER Justin Hammond
+
+RUN adduser ozwcp_user
+RUN usermod -a -G dialout ozwcp_user
+RUN usermod -a -G games ozwcp_user
+COPY /files/*.repo /etc/yum.repos.d/
+RUN yum install epel-release -y && yum install tinyxml libmicrohttpd libopenzwave gnutls -y
+
 USER ozwcp_user
+ENV HOME /home/ozwcp_user
+
+WORKDIR	$HOME
+
+COPY --from=builder /home/ozwcp_user/open-zwave-control-panel /home/ozwcp_user/open-zwave-control-panel/
+
 EXPOSE 8008
 ENTRYPOINT ["/home/ozwcp_user/open-zwave-control-panel/ozwcp", "-p 8008"]
 
