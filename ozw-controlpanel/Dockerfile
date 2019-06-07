@@ -16,7 +16,8 @@ WORKDIR /etc/yum.repos.d/
 RUN yum install wget -y && wget http://mirror.my-ho.st/Downloads/OpenZWave%3A/Devel/CentOS_CentOS-7/OpenZWave%3ADevel.repo
 
 # Update the repository sources list
-RUN yum update -y && yum groupinstall 'Development Tools' -y && yum install libmicrohttpd-devel libopenzwave-devel gnutls-devel systemd-devel -y
+RUN yum update -y && yum install epel-release -y && yum groupinstall 'Development Tools' -y 
+RUN yum install tinyxml-devel libmicrohttpd-devel libopenzwave-devel gnutls-devel systemd-devel -y
 
 
 ################## BEGIN INSTALLATION ######################
@@ -38,11 +39,11 @@ RUN git clone https://github.com/OpenZWave/open-zwave-control-panel.git
 WORKDIR $HOME/open-zwave-control-panel
 
 COPY /files/Makefile $HOME/open-zwave-control-panel/
-ADD https://raw.githubusercontent.com/OpenZWave/open-zwave/master/cpp/tinyxml/tinyxml.h $HOME/open-zwave-control-panel/
-ADD https://raw.githubusercontent.com/OpenZWave/open-zwave/master/cpp/tinyxml/tinystr.h $HOME/open-zwave-control-panel/
+#ADD https://raw.githubusercontent.com/OpenZWave/open-zwave/master/cpp/tinyxml/tinyxml.h $HOME/open-zwave-control-panel/
+#ADD https://raw.githubusercontent.com/OpenZWave/open-zwave/master/cpp/tinyxml/tinystr.h $HOME/open-zwave-control-panel/
 
-USER root
-RUN chown ozwcp_user $HOME/open-zwave-control-panel/tiny*
+#USER root
+#RUN chown ozwcp_user $HOME/open-zwave-control-panel/tiny*
 USER ozwcp_user
 
 
